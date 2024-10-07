@@ -5,8 +5,8 @@ import com.example.myapplication.networking.response.MealsSeafoodFilterResponse
 import com.example.myapplication.ui.meals.repository.MealsRepository
 
 class MealsViewModel (private val repository: MealsRepository = MealsRepository()): ViewModel() {
-    fun getMealsSeafoodFilter (successCallback: (response: MealsSeafoodFilterResponse?) -> Unit) {
-        repository.getMealsSeafoodFilter { response ->
+    fun getMealsFilter (successCallback: (response: MealsSeafoodFilterResponse?) -> Unit) {
+        repository.getMealsFilter { response ->
             successCallback(response)
         }
     }

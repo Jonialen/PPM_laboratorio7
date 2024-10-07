@@ -7,7 +7,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MealsRepository(private val webService: MealsWebService = MealsWebService()) {
-    fun getMealsSeafoodFilter(successCallback: (response: MealsSeafoodFilterResponse?) -> Unit) {
+    fun getMealsFilter(successCallback: (response: MealsSeafoodFilterResponse?) -> Unit) {
         return webService.getMealsSeafoodFilter().enqueue(object : Callback<MealsSeafoodFilterResponse> {
             override fun onResponse(
                 call: Call<MealsSeafoodFilterResponse>,
@@ -18,7 +18,8 @@ class MealsRepository(private val webService: MealsWebService = MealsWebService(
             }
 
             override fun onFailure(call: Call<MealsSeafoodFilterResponse>, t: Throwable) {
-                // TODO treat failure
+                println("Error en la llamada a la API: ${t.message}")
+                successCallback(null) // O bien manejarlo de otra manera
             }
         })
     }

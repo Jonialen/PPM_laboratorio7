@@ -3,8 +3,8 @@ package com.example.myapplication.networking.response
 import com.google.gson.annotations.SerializedName
 
 data class MealsCategoriesResponse(val categories: List<MealsCatergories>)
-data class MealsSeafoodFilterResponse(val categories: List<MealsSeafoodFilter>)
-data class MealslookupEscovitchFishResponse(val categories: List<MealslookupEscovitchFish>)
+data class MealsSeafoodFilterResponse(val meals: List<MealsSeafoodFilter>)
+data class MealslookupEscovitchFishResponse(val meals: List<MealslookupEscovitchFish>)
 
 data class MealsCatergories(
     @SerializedName("idCategory") val idCategory: String,

@@ -72,6 +72,8 @@ dependencies {
     implementation(libs.converter.gson)
 
     implementation(libs.androidx.navigation.compose)
+    implementation(kotlin("script-runtime"))
+    implementation(libs.coil.compose)
 
 
 }
