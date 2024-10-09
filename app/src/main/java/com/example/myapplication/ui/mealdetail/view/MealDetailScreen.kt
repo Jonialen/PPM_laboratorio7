@@ -11,16 +11,17 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import com.example.myapplication.networking.response.MealslookupEscovitchFish
+import com.example.myapplication.networking.response.Mealslookup
 import com.example.myapplication.ui.mealdetail.viewmodel.MealsdetailViewModel
 
 @Composable
-fun MealDetailScreen(viewModel: MealsdetailViewModel = viewModel()) {
-    var meals by remember { mutableStateOf(emptyList<MealslookupEscovitchFish>()) }
+fun MealDetailScreen(navController: NavController, viewModel: MealsdetailViewModel = viewModel()) {
+    var meals by remember { mutableStateOf(emptyList<Mealslookup>()) }
 
     // Llama al ViewModel para obtener los detalles de la comida
-    viewModel.getMealslookupEscovitchFish { response ->
+    viewModel.getMealslookup { response ->
         response?.meals?.let {
             meals = it
         }
@@ -40,7 +41,7 @@ fun MealDetailScreen(viewModel: MealsdetailViewModel = viewModel()) {
 }
 
 @Composable
-fun MealList(meals: List<MealslookupEscovitchFish>) {
+fun MealList(meals: List<Mealslookup>) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(meals) { meal ->
             MealCard(meal = meal)
@@ -49,7 +50,7 @@ fun MealList(meals: List<MealslookupEscovitchFish>) {
 }
 
 @Composable
-fun MealCard(meal: MealslookupEscovitchFish) {  // Asegúrate de que el tipo de meal sea el correcto
+fun MealCard(meal: Mealslookup) {  // Asegúrate de que el tipo de meal sea el correcto
     Card(
         modifier = Modifier
             .fillMaxWidth()

@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.categories.view
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -14,9 +15,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
 import com.example.myapplication.networking.response.MealsCatergories
 import com.example.myapplication.ui.categories.viewmodel.CategoriesViewModel
+import androidx.navigation.NavController
+import com.example.myapplication.navegation.AppScreens
 
 @Composable
-fun CategoriesScreen(viewModel: CategoriesViewModel = viewModel()) {
+fun CategoriesScreen(navController: NavController, viewModel: CategoriesViewModel = viewModel()) {
     var categories by remember { mutableStateOf(emptyList<MealsCatergories>()) }
 
     // Llama al ViewModel para obtener las categorías
@@ -27,25 +30,28 @@ fun CategoriesScreen(viewModel: CategoriesViewModel = viewModel()) {
     }
 
     // Muestra la lista de categorías
-    CategoryList(categories = categories)
+    CategoryList(categories = categories, navController = navController)
 }
 
 @Composable
-fun CategoryList(categories: List<MealsCatergories>) {
+fun CategoryList(categories: List<MealsCatergories>, navController: NavController) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(categories) { category ->
-            CategoryCard(category = category)
+            CategoryCard(category = category, onClick = {
+                navController.navigate(AppScreens.MealsScreen.route)
+            })
         }
     }
 }
 
 @Composable
-fun CategoryCard(category: MealsCatergories) {
+fun CategoryCard(category: MealsCatergories, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
-        elevation = CardDefaults.cardElevation(4.dp)
+            .padding(8.dp)
+            .clickable { onClick() },
+            elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             // Carga la imagen usando Coil

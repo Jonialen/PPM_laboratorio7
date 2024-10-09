@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.meals.view
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -11,13 +12,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import com.example.myapplication.networking.response.MealsSeafoodFilter
+import com.example.myapplication.navegation.AppScreens
+import com.example.myapplication.networking.response.MealsFilter
 import com.example.myapplication.ui.meals.viewmodel.MealsViewModel
 
 @Composable
-fun MealsScreen(viewModel: MealsViewModel = viewModel()) {
-    var meals by remember { mutableStateOf(emptyList<MealsSeafoodFilter>()) }
+fun MealsScreen(navController: NavController, viewModel: MealsViewModel = viewModel()) {
+    var meals by remember { mutableStateOf(emptyList<MealsFilter>()) }
 
     // Llama al ViewModel para obtener las comidas filtradas
     viewModel.getMealsFilter { response ->
@@ -27,24 +30,27 @@ fun MealsScreen(viewModel: MealsViewModel = viewModel()) {
     }
 
     // Muestra la lista de comidas
-    SeafoodFilterList(meals = meals)
+    FilterList(meals = meals, navController = navController)
 }
 
 @Composable
-fun SeafoodFilterList(meals: List<MealsSeafoodFilter>) {
+fun FilterList(meals: List<MealsFilter>, navController: NavController) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(meals) { meal ->
-            SeafoodFilterCard(meal = meal)
+            FilterCard(meal = meal, onClick = {
+                navController.navigate(AppScreens.MealDetailScreen.route)
+            })
         }
     }
 }
 
 @Composable
-fun SeafoodFilterCard(meal: MealsSeafoodFilter) {
+fun FilterCard(meal: MealsFilter, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(8.dp)
+            .clickable { onClick() },
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {

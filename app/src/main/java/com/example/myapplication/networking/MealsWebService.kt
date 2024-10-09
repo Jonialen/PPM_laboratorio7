@@ -1,8 +1,8 @@
 package com.example.myapplication.networking
 
 import com.example.myapplication.networking.response.MealsCategoriesResponse
-import com.example.myapplication.networking.response.MealsSeafoodFilterResponse
-import com.example.myapplication.networking.response.MealslookupEscovitchFishResponse
+import com.example.myapplication.networking.response.MealsFilterResponse
+import com.example.myapplication.networking.response.MealslookupResponse
 import retrofit2.Retrofit
 import retrofit2.Call
 import retrofit2.converter.gson.GsonConverterFactory
@@ -23,11 +23,11 @@ public class MealsWebService {
         return api.getMealsCategories()
     }
 
-    fun getMealsSeafoodFilter(): Call<MealsSeafoodFilterResponse> {
-        return api.getMealsSeafoodFilter()
+    fun getMealsFilter(): Call<MealsFilterResponse> {
+        return api.getMealsFilter()
     }
 
-    fun getMealslookupEscovitchFish(): Call<MealslookupEscovitchFishResponse> {
-        return api.getMealslookupEscovitchFish()
+    fun getMealslookup(): Call<MealslookupResponse> {
+        return api.getMealslookup()
     }
 }
